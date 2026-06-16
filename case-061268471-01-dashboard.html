@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case 061268471-01 | Insurance Bad Faith &amp; Expert Contradiction • Public Ledger</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --navy: #1e3a8a;
+            --slate: #1e2937;
+            --crimson: #9f1239;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        .section-header {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #0f172a;
+        }
+
+        .nav-active {
+            color: #1e3a8a;
+            font-weight: 600;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .executive-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                       box-shadow 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .executive-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.05), 0 4px 6px -4px rgb(15 23 42 / 0.05);
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 15px;
+            top: 32px;
+            bottom: -24px;
+            width: 2px;
+            background: #cbd5e1;
+        }
+        
+        .timeline-item:last-child .timeline-line {
+            display: none;
+        }
+        
+        .timeline-dot {
+            box-shadow: 0 0 0 4px #f8fafc;
+            transition: all 0.2s ease;
+        }
+        
+        .timeline-dot.bad-faith {
+            box-shadow: 0 0 0 4px #fef2f2;
+            border: 2px solid #9f1239;
+        }
+        
+        .bad-faith-accent {
+            border-left: 4px solid #9f1239;
+        }
+
+        /* Ensure dates and text have breathing room from timeline icons */
+        .timeline-item .flex.flex-col {
+            padding-left: 0.875rem;
+        }
+        
+        .metric-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link {
+            transition: color 0.1s ease;
+        }
+        
+        .nav-link:hover {
+            color: #1e3a8a;
+        }
+
+        .ledger-table th {
+            font-weight: 600;
+            color: #334155;
+            letter-spacing: -0.01em;
+        }
+        
+        .status-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.125rem 0.625rem;
+            border-radius: 9999px;
+            letter-spacing: -0.01em;
+        }
+
+        .fatal-grid {
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+        }
+
+        .legal-callout {
+            background: linear-gradient(to right, #0f172a, #1e2937);
+            color: white;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .dashboard-container {
+            max-width: 1180px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .subtle-divider {
+            border-color: #e2e8f0;
+        }
+
+        .executive-text {
+            color: #0f172a;
+        }
+
+        .claim-stat {
+            font-feature-settings: "tnum";
+        }
+
+        .timeline-date {
+            font-family: 'Space Grotesk', ui-monospace, monospace;
+            font-weight: 600;
+            color: #1e2937;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .executive-card, .timeline-item {
+                box-shadow: none !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+            body {
+                background: white !important;
+            }
+            .section-header {
+                color: #0f172a !important;
+            }
+            .bad-faith-accent {
+                border-left: 4px solid #9f1239 !important;
+            }
+            .legal-callout {
+                background: #0f172a !important;
+            }
+            .dashboard-container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased">
+    <!-- Sticky Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 no-print">
+        <div class="max-w-[1180px] mx-auto">
+            <div class="px-8 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-x-3">
+                    <div class="flex items-center gap-x-2.5">
+                        <div class="w-9 h-9 bg-blue-900 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-balance-scale text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold tracking-tighter text-xl text-slate-900">CASE 061268471-01</div>
+                            <div class="text-[10px] font-medium text-slate-500 -mt-1">PUBLIC LEDGER</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="#overview" class="nav-link text-slate-700 hover:text-blue-900">Overview</a>
+                    <a href="#bad-faith" class="nav-link text-slate-700 hover:text-blue-900">Bad Faith Indicators</a>
+                    <a href="#timeline" class="nav-link text-slate-700 hover:text-blue-900">Timeline</a>
+                    <a href="#policy" class="nav-link text-slate-700 hover:text-blue-900">Policy Analysis</a>
+                    <a href="#ledger" class="nav-link text-slate-700 hover:text-blue-900">Evidence Ledger</a>
+                </div>
+
+                <div class="flex items-center gap-x-3">
+                    <button onclick="printReport()" 
+                            class="inline-flex items-center gap-x-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-4 py-2 transition-colors shadow-sm">
+                        <i class="fa-solid fa-print text-sm"></i>
+                        <span class="hidden sm:inline">Print Report</span>
+                    </button>
+                    
+                    <!-- Mobile menu button -->
+                    <div class="md:hidden">
+                        <button onclick="toggleMobileNav()" class="w-9 h-9 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg">
+                            <i class="fa-solid fa-bars text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile Nav -->
+            <div id="mobile-nav" class="hidden md:hidden border-t border-slate-200 bg-white px-6 py-3 text-sm font-medium">
+                <div class="flex flex-col gap-y-1">
+                    <a href="#overview" onclick="toggleMobileNav()" class="py-2 px-3 text-slate-700 hover:bg-slate-50 rounded-md">Overview</a>
+                    <a href="#bad-faith" onclick="toggleMobileNav()" class="py-2 px-3 text-slate-700 hover:bg-slate-50 rounded-md">Bad Faith Indicators</a>
+                    <a href="#timeline" onclick="toggleMobileNav()" class="py-2 px-3 text-slate-700 hover:bg-slate-50 rounded-md">Timeline</a>
+                    <a href="#policy" onclick="toggleMobileNav()" class="py-2 px-3 text-slate-700 hover:bg-slate-50 rounded-md">Policy Analysis</a>
+                    <a href="#ledger" onclick="toggleMobileNav()" class="py-2 px-3 text-slate-700 hover:bg-slate-50 rounded-md">Evidence Ledger</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO & EXECUTIVE OVERVIEW -->
+    <header id="overview" class="bg-white border-b border-slate-200">
+        <div class="max-w-[1180px] mx-auto px-8 pt-10 pb-9">
+            <div class="max-w-4xl">
+                <!-- Case identifier -->
+                <div class="inline-flex items-center gap-x-2 mb-3">
+                    <div class="px-3 py-1 bg-blue-900 text-white text-xs font-bold tracking-[1px] rounded">INSURANCE CLAIM</div>
+                    <div class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-mono font-medium tracking-widest rounded">FILE #061268471-01</div>
+                </div>
+
+                <h1 class="heading-font text-5xl tracking-tighter leading-none text-slate-900 font-semibold mb-4">
+                    Case 061268471-01:<br>
+                    <span class="text-blue-900">A Study in Insurance Bad Faith &amp; Expert Contradiction</span>
+                </h1>
+
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-lg text-slate-600 mb-5">
+                    <div>
+                        <span class="font-semibold text-slate-800">Property Location:</span> 6340 Quinn Road, Frederick, MD
+                    </div>
+                    <div class="hidden sm:block w-px h-3.5 bg-slate-300"></div>
+                    <div>
+                        <span class="font-semibold text-slate-800">Insured:</span> Sheets
+                    </div>
+                </div>
+
+                <!-- Prominent Status -->
+                <div class="inline-flex items-center gap-x-3 mt-1">
+                    <div class="inline-flex items-center rounded-full bg-red-700 text-white text-sm font-semibold px-5 py-2 shadow-sm">
+                        <i class="fa-solid fa-exclamation-triangle mr-2"></i>
+                        <span>DENIED IN ACQUIESCENCE</span>
+                    </div>
+                    <div class="text-red-700 text-sm font-medium px-1">Reconsideration Ongoing</div>
+                </div>
+            </div>
+
+            <!-- The Fatal Contradiction -->
+            <div class="mt-9">
+                <div class="flex items-center gap-x-3 mb-3">
+                    <div class="font-bold text-xl tracking-tight text-slate-900">The Fatal Contradiction</div>
+                    <div class="h-px flex-1 bg-slate-200"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4 fatal-grid border border-slate-200 rounded-2xl overflow-hidden bg-white">
+                    <!-- Column A: Adjuster's Position -->
+                    <div class="p-6 border-b md:border-b-0 md:border-r border-slate-200 bg-slate-50">
+                        <div class="flex items-center gap-x-2 mb-3">
+                            <i class="fa-solid fa-user-tie text-blue-900"></i>
+                            <div class="uppercase text-xs font-extrabold tracking-widest text-blue-900">The Adjuster’s Position</div>
+                        </div>
+                        <p class="text-[15px] leading-relaxed text-slate-700">
+                            On <span class="font-semibold">June 15, 2026</span>, Adjuster Derrick Walters asserted via email:
+                        </p>
+                        <blockquote class="mt-3 pl-4 border-l-2 border-blue-900 text-slate-800 italic">
+                            “Per findings we were not able to find any covered perils... We are submitting a denial letter.”
+                        </blockquote>
+                    </div>
+
+                    <!-- Column B: Carrier's Expert Finding -->
+                    <div class="p-6 bg-white border-l-4 border-red-700">
+                        <div class="flex items-center gap-x-2 mb-3">
+                            <i class="fa-solid fa-file-medical text-red-700"></i>
+                            <div class="uppercase text-xs font-extrabold tracking-widest text-red-700">The Carrier’s Own Expert Finding</div>
+                        </div>
+                        <p class="text-[15px] leading-relaxed text-slate-700 mb-3">
+                            In the exact report attached to that email, the carrier’s own retained engineer 
+                            <span class="font-semibold text-slate-900">(Nick Catanzaro, P.E., File 2026-119)</span> 
+                            explicitly concluded under <span class="font-semibold">Conclusion #3</span>:
+                        </p>
+                        <blockquote class="pl-4 border-l-2 border-red-700 text-slate-800 font-medium">
+                            “The cause of the interior water damage is the installation of spray foam and the sealing of the rafter bays at the attic floor.”
+                        </blockquote>
+                        <div class="mt-3 text-sm font-semibold text-red-700">
+                            He explicitly ruled out external roof seepage or leakage.
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <span class="text-xs uppercase tracking-widest font-bold text-red-700 bg-red-50 px-3 py-px rounded">Direct internal contradiction by Liberty Mutual’s own expert</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BAD-FAITH ACCOUNTABILITY METER -->
+    <section id="bad-faith" class="max-w-[1180px] mx-auto px-8 pt-10 pb-6">
+        <div class="flex items-end justify-between mb-5">
+            <div>
+                <div class="uppercase text-red-700 font-extrabold text-xs tracking-[1.5px]">Process Accountability</div>
+                <h2 class="section-header tracking-tight">The Bad-Faith Accountability Meter</h2>
+            </div>
+            <div class="hidden md:block text-xs text-slate-500 font-medium">Three documented structural failures</div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <!-- Card 1 -->
+            <div class="executive-card rounded-2xl p-6 border border-slate-200 shadow-sm metric-card">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 flex-shrink-0 rounded-xl bg-red-700 flex items-center justify-center">
+                        <i class="fa-solid fa-clock text-white text-xl"></i>
+                    </div>
+                    <div class="font-extrabold text-2xl text-red-700 tracking-tighter">8-Minute Inspection</div>
+                </div>
+                <div class="text-[15px] leading-snug text-slate-700">
+                    Adjuster Walters conducted a superficial <span class="font-semibold">8-to-9-minute visual-only site inspection</span> on May 4, 2026. 
+                    He failed to inspect behind open drywall or map moisture, yet issued a flat denial 4 days later citing “continuous seepage” 
+                    without consulting an engineer.
+                </div>
+                <div class="mt-4 inline-flex items-center text-xs font-bold px-3 py-1 rounded bg-red-50 text-red-700">
+                    <i class="fa-solid fa-exclamation mr-1.5"></i> 
+                    NO ENGINEER CONSULTED
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="executive-card rounded-2xl p-6 border border-slate-200 shadow-sm metric-card">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 flex-shrink-0 rounded-xl bg-red-700 flex items-center justify-center">
+                        <i class="fa-solid fa-hourglass-half text-white text-xl"></i>
+                    </div>
+                    <div class="font-extrabold text-2xl text-red-700 tracking-tighter">20-Day Engineering Blackout</div>
+                </div>
+                <div class="text-[15px] leading-snug text-slate-700">
+                    Following the carrier’s engineering inspection on May 16, 2026, the claim was left in administrative silence for 
+                    <span class="font-semibold">20 days</span> under the pretext of a “busy queue.” During this blackout period, the insured was compelled to perform and fund the roof replacement and SPF remediation out-of-pocket to protect the property.
+                </div>
+                <div class="mt-4 inline-flex items-center text-xs font-bold px-3 py-1 rounded bg-red-50 text-red-700">
+                    <i class="fa-solid fa-ban mr-1.5"></i> 
+                    CRITICAL DELAY
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="executive-card rounded-2xl p-6 border border-slate-200 shadow-sm metric-card">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 flex-shrink-0 rounded-xl bg-red-700 flex items-center justify-center">
+                        <i class="fa-solid fa-calendar-xmark text-white text-xl"></i>
+                    </div>
+                    <div class="font-extrabold text-2xl text-red-700 tracking-tighter">Blown Self-Imposed Deadline</div>
+                </div>
+                <div class="text-[15px] leading-snug text-slate-700">
+                    The adjuster committed in writing on June 10, 2026, to provide a coverage decision by <span class="font-semibold">Friday, June 12 EOB</span>. 
+                    The deadline was completely missed without proactive communication, culminating in a one-sentence email denial on Monday, June 15, 
+                    that directly ignored his own expert’s findings.
+                </div>
+                <div class="mt-4 inline-flex items-center text-xs font-bold px-3 py-1 rounded bg-red-50 text-red-700">
+                    <i class="fa-solid fa-file-circle-xmark mr-1.5"></i> 
+                    COMMITMENT BREACHED
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE INTERACTIVE LOGICAL TIMELINE -->
+    <section id="timeline" class="max-w-[1180px] mx-auto px-8 py-8 bg-white border-y border-slate-200">
+        <div class="flex items-center justify-between mb-5">
+            <div>
+                <h2 class="section-header tracking-tight">The Interactive Logical Timeline</h2>
+                <p class="text-sm text-slate-600 mt-0.5">Complete factual chronology supported by carrier documents and physical evidence</p>
+            </div>
+            
+            <!-- Interactive controls -->
+            <div class="flex items-center gap-2 text-sm no-print">
+                <div onclick="filterTimeline('all')" id="filter-all"
+                     class="cursor-pointer px-4 py-1.5 rounded-xl bg-blue-900 text-white font-semibold text-xs flex items-center gap-x-2 active-filter">
+                    <i class="fa-solid fa-list"></i>
+                    <span>ALL EVENTS</span>
+                </div>
+                <div onclick="filterTimeline('bad-faith')" id="filter-bad"
+                     class="cursor-pointer px-4 py-1.5 rounded-xl border border-red-700 text-red-700 font-semibold text-xs flex items-center gap-x-2 hover:bg-red-50">
+                    <i class="fa-solid fa-exclamation-triangle"></i>
+                    <span>BAD FAITH ONLY</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-3xl">
+            <ol class="relative border-l-2 border-slate-200 ml-3 space-y-8" id="timeline-list">
+                <!-- May 17, 2024 -->
+                <li class="timeline-item ml-10" data-bad-faith="false">
+                    <div class="absolute -left-3 top-[4px]">
+                        <div class="timeline-dot w-4 h-4 bg-blue-900 rounded-full flex items-center justify-center ring-4 ring-white">
+                            <i class="fa-solid fa-tools text-[9px] text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="timeline-date text-sm text-blue-900 font-semibold tracking-tight">May 17, 2024</div>
+                        <div class="font-semibold text-lg leading-tight tracking-tight text-slate-900 mt-0.5">Defective closed-cell spray foam installed</div>
+                        <div class="text-[15px] text-slate-700 mt-1">Contractor installed spray foam, sealing the attic and blocking code-required ventilation (IRC R806.5 / R702.7).</div>
+                    </div>
+                </li>
+
+                <!-- July 3, 2025 -->
+                <li class="timeline-item ml-10" data-bad-faith="false">
+                    <div class="absolute -left-3 top-[4px]">
+                        <div class="timeline-dot w-4 h-4 bg-blue-900 rounded-full flex items-center justify-center ring-4 ring-white">
+                            <i class="fa-solid fa-search text-[9px] text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="timeline-date text-sm text-blue-900 font-semibold tracking-tight">July 3, 2025</div>
+                        <div class="font-semibold text-lg leading-tight tracking-tight text-slate-900 mt-0.5">Date of Discovery</div>
+                        <div class="text-[15px] text-slate-700 mt-1">
+                            Internal moisture manifests as water dripping from ceilings and hidden mold growth behind living-space drywall. 
+                            <span class="font-semibold text-emerald-700">Contractor HQ immediately admits causation in writing:</span> 
+                            “Due to the work performed at your home... and repairs needed due to this work...”
+                        </div>
+                    </div>
+                </li>
+
+                <!-- April 24, 2026 -->
+                <li class="timeline-item ml-10" data-bad-faith="false">
+                    <div class="absolute -left-3 top-[4px]">
+                        <div class="timeline-dot w-4 h-4 bg-blue-900 rounded-full flex items-center justify-center ring-4 ring-white">
+                            <i class="fa-solid fa-file-contract text-[9px] text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="timeline-date text-sm text-blue-900 font-semibold tracking-tight">April 24, 2026</div>
+                        <div class="font-semibold text-lg leading-tight tracking-tight text-slate-900 mt-0.5">Formal Notices of Claim served</div>
+                        <div class="text-[15px] text-slate-700 mt-1">Notices served on carriers. Documented damages expand beyond $30,000, forcing the voluntary withdrawal of a contractor civil suit to preserve a larger Circuit Court action.</div>
+                    </div>
+                </li>
+
+                <!-- May 4, 2026 - BAD FAITH -->
+                <li class="timeline-item ml-10 bad-faith-accent pl-4 -ml-4 py-1 rounded-r" data-bad-faith="true">
+                    <div class="absolute -left-3 top-[4px]">
+                        <div class="timeline-dot bad-faith w-4 h-4 bg-red-700 rounded-full flex items-center justify-center ring-4 ring-red-50">
+                            <i class="fa-solid fa-exclamation text-[9px] text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="flex items-center gap-x-2">
+                            <div class="timeline-date text-sm font-semibold tracking-tight text-red-700">May 4, 2026</div>
+                            <span class="status-badge bg-red-700 text-white text-[10px]">BAD FAITH</span>
+                        </div>
+                        <div class="font-semibold text-lg leading-tight tracking-tight text-slate-900 mt-0.5">The superficial 8-minute adjuster inspection</div>
+                        <div class="text-[15px] text-slate-700 mt-1">Adjuster Walters performed an 8-to-9 minute visual-only inspection. No moisture mapping or inspection behind open drywall occurred.</div>
+                    </div>
+                </li>
+
+                <!-- May 8, 2026 - BAD FAITH -->
+                <li class="timeline-item ml-10 bad-faith-accent pl-4 -ml-4 py-1 rounded-r" data-bad-faith="true">
+                    <div class="absolute -left-3 top-[4px]">
+                        <div class="timeline-dot bad-faith w-4 h-4 bg-red-700 rounded-full flex items-center justify-center ring-4 ring-red-50">
+                            <i class="fa-solid fa-ban text-[9px] text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="flex items-center gap-x-2">
+                            <div class="timeline-date text-sm font-semibold tracking-tight text-red-700">May 8, 2026</div>
+                            <span class="status-badge bg-red-700 text-white text-[10px]">BAD FAITH</span>
+                        </div>
+                        <div class="font-semibold text-lg leading-tight tracking-tight text-slate-900 mt-0.5">Liberty Mutual issues flat written denial</div>
+                        <div class="text-[15px] text-slate-700 mt-1">
+                            Denial alleges “continuous seepage over a long period of time” under the Seepage Exclusion. 
+                            Homeowner serves immediate <span class="font-semibold">Request for Reconsideration</span> and formal <span class="font-semibold">Notice of Compelled Mitigation</span>.
+                        </div>
+                    </div>
+                </li>
+
+                <!-- May 16, 2026 -->
+                <li class="timeline-item ml-10" data-bad-faith="false">
+                    <div class="absolute -left-3 top-[4px]">
+                        <div class="timeline-dot w-4 h-4 bg-blue-900 rounded-full flex items-center justify-center ring-4 ring-white">
+                            <i class="fa-solid fa-user-check text-[9px] text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="timeline-date text-sm text-blue-900 font-semibold tracking-tight">May 16, 2026</div>
+                        <div class="font-semibold text-lg leading-tight tracking-tight text-slate-900 mt-0.5">Carrier’s retained expert inspection</div>
+                        <div class="text-[15px] text-slate-700 mt-1">Liberty Mutual’s hand-picked expert, <span class="font-semibold">Nick Catanzaro, P.E.</span>, inspects the property.</div>
+                    </div>
+                </li>
+
+                <!-- May 19-22, 2026 -->
+                <li class="timeline-item ml-10" data-bad-faith="false">
+                    <div class="absolute -left-3 top-[4px]">
+                        <div class="timeline-dot w-4 h-4 bg-blue-900 rounded-full flex items-center justify-center ring-4 ring-white">
+                            <i class="fa-solid fa-hammer text-[9px] text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="timeline-date text-sm text-blue-900 font-semibold tracking-tight">May 19–22, 2026</div>
+                        <div class="font-semibold text-lg leading-tight tracking-tight text-slate-900 mt-0.5">Compelled Mitigation Performed (during carrier blackout)</div>
+                        <div class="text-[15px] text-slate-700 mt-1">
+                            Insured pays out-of-pocket for full roof replacement and foam remediation. 
+                            <span class="font-medium">Physical tear-off evidence</span> revealed sheathing <span class="font-semibold">above</span> the foam was completely dry — proving the damage pattern was internal condensation and entirely invalidating the carrier’s “seepage” theory.
+                        </div>
+                    </div>
+                </li>
+
+                <!-- June 8, 2026 -->
+                <li class="timeline-item ml-10" data-bad-faith="false">
+                    <div class="absolute -left-3 top-[4px]">
+                        <div class="timeline-dot w-4 h-4 bg-blue-900 rounded-full flex items-center justify-center ring-4 ring-white">
+                            <i class="fa-solid fa-file-lines text-[9px] text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="timeline-date text-sm text-blue-900 font-semibold tracking-tight">June 8, 2026</div>
+                        <div class="font-semibold text-lg leading-tight tracking-tight text-slate-900 mt-0.5">Catanzaro Engineering Report officially issued</div>
+                        <div class="text-[15px] text-slate-700 mt-1">Report verifies internal condensation from the blocked building envelope as the <span class="font-semibold">sole source</span> of damage.</div>
+                    </div>
+                </li>
+
+                <!-- June 15, 2026 - BAD FAITH -->
+                <li class="timeline-item ml-10 bad-faith-accent pl-4 -ml-4 py-1 rounded-r" data-bad-faith="true">
+                    <div class="absolute -left-3 top-[4px]">
+                        <div class="timeline-dot bad-faith w-4 h-4 bg-red-700 rounded-full flex items-center justify-center ring-4 ring-red-50">
+                            <i class="fa-solid fa-times-circle text-[9px] text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="flex items-center gap-x-2">
+                            <div class="timeline-date text-sm font-semibold tracking-tight text-red-700">June 15, 2026</div>
+                            <span class="status-badge bg-red-700 text-white text-[10px]">BAD FAITH</span>
+                        </div>
+                        <div class="font-semibold text-lg leading-tight tracking-tight text-slate-900 mt-0.5">Second denial issued while ignoring own expert</div>
+                        <div class="text-[15px] text-slate-700 mt-1">
+                            Adjuster attempts to issue a second denial while completely ignoring the findings of his own expert report (Nick Catanzaro, P.E.) attached to the correspondence.
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        
+        <div class="text-xs text-slate-500 italic mt-4 pl-3">All timeline entries are supported by contemporaneous written records and the carrier’s own retained engineering report.</div>
+    </section>
+
+    <!-- CONTRACTUAL REALITY -->
+    <section id="policy" class="max-w-[1180px] mx-auto px-8 py-9">
+        <div class="mb-4">
+            <div class="uppercase text-blue-900 text-xs font-extrabold tracking-[1px]">Contractual &amp; Legal Analysis</div>
+            <h2 class="section-header tracking-tight">The Contractual Reality (The Ensuing Loss Carve-Out)</h2>
+        </div>
+
+        <div class="legal-callout rounded-2xl p-8 md:p-9 shadow-inner text-white">
+            <div class="max-w-3xl">
+                <div class="flex items-start gap-4">
+                    <i class="fa-solid fa-gavel text-red-400 text-3xl mt-1 flex-shrink-0"></i>
+                    <div class="flex-1">
+                        <p class="text-xl font-semibold tracking-tight leading-tight mb-5">
+                            Liberty Mutual is violating its own policy language by denying a covered ensuing loss.
+                        </p>
+
+                        <div class="space-y-5 text-[15.2px] leading-relaxed">
+                            <div>
+                                <span class="font-semibold text-red-300">Section I, Exclusion 2.c</span> explicitly excludes the cost of repairing or replacing faulty workmanship itself (the insulation install).
+                            </div>
+                            <div class="pl-1 border-l-2 border-red-400/70">
+                                However, the opening sentence of <span class="font-semibold text-red-300">Section I, Exclusion 2</span> explicitly carves back full coverage:
+                                <div class="mt-2 text-white/95 font-medium bg-black/20 p-3 rounded-lg border border-white/10">
+                                    “However, any ensuing loss to property described in Coverages A and B not excluded or excepted in this policy is covered.”
+                                </div>
+                            </div>
+                            <div>
+                                <span class="font-semibold">Legal Fact:</span> Because previously sound structural components (drywall, framing, sheathing) suffered physical water damage as a consequence of the faulty install, it is a textbook covered “ensuing loss” under Maryland law.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PUBLIC EVIDENCE LEDGER -->
+    <section id="ledger" class="max-w-[1180px] mx-auto px-8 pb-12">
+        <div class="flex items-baseline justify-between mb-4">
+            <div>
+                <h2 class="section-header tracking-tight">Public Evidence Ledger</h2>
+                <p class="text-sm text-slate-600">Hard facts and paid invoices anchoring the claim</p>
+            </div>
+            <div class="hidden sm:block text-right">
+                <div class="text-xs text-slate-500">TOTAL DOCUMENTED VALUE</div>
+                <div class="font-mono text-3xl font-semibold tracking-tighter text-slate-900 claim-stat">$36,700.00</div>
+            </div>
+        </div>
+
+        <div class="bg-white shadow-sm border border-slate-200 rounded-2xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full ledger-table text-sm">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200">
+                            <th class="text-left px-6 py-3.5 font-semibold text-slate-700">Description</th>
+                            <th class="text-left px-6 py-3.5 font-semibold text-slate-700">Vendor (License)</th>
+                            <th class="text-right px-6 py-3.5 font-semibold text-slate-700">Amount</th>
+                            <th class="px-6 py-3.5 font-semibold text-slate-700 w-44">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-slate-700">
+                        <tr>
+                            <td class="px-6 py-3.5 font-medium">Roof &amp; Decking Structural Replacement</td>
+                            <td class="px-6 py-3.5">Semper West Builders (MHIC #143409)</td>
+                            <td class="px-6 py-3.5 text-right font-semibold tabular-nums">$13,094.00</td>
+                            <td class="px-6 py-3.5">
+                                <span class="status-badge bg-emerald-100 text-emerald-800">Paid in Full (5/20/2026)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3.5 font-medium">Drywall Demolition, Install, &amp; Painting</td>
+                            <td class="px-6 py-3.5">Drywall Innovation by Ethan (MHIC #166047)</td>
+                            <td class="px-6 py-3.5 text-right font-semibold tabular-nums">$11,450.00</td>
+                            <td class="px-6 py-3.5">
+                                <span class="status-badge bg-amber-100 text-amber-800">Formally Quoted</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3.5 font-medium">Bathroom Shower Wall Full Structural Restoration</td>
+                            <td class="px-6 py-3.5">Curtis Cumberland (MHIC #113910)</td>
+                            <td class="px-6 py-3.5 text-right font-semibold tabular-nums">$8,450.00</td>
+                            <td class="px-6 py-3.5">
+                                <span class="status-badge bg-amber-100 text-amber-800">Formally Quoted</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3.5 font-medium">Emergency SPF Thermal Boundary Remediation</td>
+                            <td class="px-6 py-3.5">Spray Tight Insulation LLC (PAHIC #119591)</td>
+                            <td class="px-6 py-3.5 text-right font-semibold tabular-nums">$2,920.00</td>
+                            <td class="px-6 py-3.5">
+                                <span class="status-badge bg-emerald-100 text-emerald-800">Paid in Full</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3.5 font-medium">Moisture-Driven Pest Mitigation</td>
+                            <td class="px-6 py-3.5">EcoShield Pest Solutions</td>
+                            <td class="px-6 py-3.5 text-right font-semibold tabular-nums">$786.00</td>
+                            <td class="px-6 py-3.5">
+                                <span class="status-badge bg-slate-200 text-slate-700">Paid Out-of-Pocket</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-slate-900 text-white font-semibold">
+                            <td colspan="2" class="px-6 py-3.5 text-right text-sm tracking-wider">TOTAL CLAIM VALUE</td>
+                            <td class="px-6 py-3.5 text-right font-mono text-xl tabular-nums">$36,700.00</td>
+                            <td class="px-6 py-3.5"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="text-xs text-slate-500 mt-3 px-1">
+            All amounts documented via paid invoices or formal written quotes. Full supporting documentation available for regulatory or legal review upon request.
+        </div>
+    </section>
+
+    <!-- Professional Footer -->
+    <footer class="border-t border-slate-200 bg-white no-print">
+        <div class="max-w-[1180px] mx-auto px-8 py-7 text-xs">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-y-2 text-slate-600">
+                <div class="font-medium">
+                    Compiled for regulatory oversight, legal counsel review, and public consumer protection tracking.
+                </div>
+                <div class="flex items-center gap-x-4 text-[10px] text-slate-500 font-medium tracking-wider">
+                    <div>CASE 061268471-01</div>
+                    <div class="w-px h-2.5 bg-slate-300"></div>
+                    <div>LIBERTY MUTUAL PROPERTY CLAIM</div>
+                    <div class="w-px h-2.5 bg-slate-300"></div>
+                    <div>QUINN ROAD • FREDERICK, MD</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script configuration
+        function initTailwind() {
+            document.documentElement.style.setProperty('--navy', '#1e3a8a');
+            document.documentElement.style.setProperty('--crimson', '#9f1239');
+        }
+
+        // Mobile nav toggle
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.classList.toggle('hidden');
+        }
+
+        // Print report function
+        function printReport() {
+            window.print();
+        }
+
+        // Timeline filtering
+        let currentFilter = 'all';
+
+        function filterTimeline(mode) {
+            const items = document.querySelectorAll('#timeline-list .timeline-item');
+            const allBtn = document.getElementById('filter-all');
+            const badBtn = document.getElementById('filter-bad');
+
+            currentFilter = mode;
+
+            if (mode === 'all') {
+                items.forEach(item => item.style.display = '');
+                allBtn.classList.add('bg-blue-900', 'text-white');
+                allBtn.classList.remove('border', 'border-blue-900', 'text-blue-900');
+                badBtn.classList.remove('bg-red-700', 'text-white');
+                badBtn.classList.add('border', 'border-red-700', 'text-red-700');
+            } else if (mode === 'bad-faith') {
+                items.forEach(item => {
+                    if (item.dataset.badFaith === 'true') {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                badBtn.classList.add('bg-red-700', 'text-white');
+                badBtn.classList.remove('border', 'border-red-700', 'text-red-700');
+                allBtn.classList.remove('bg-blue-900', 'text-white');
+                allBtn.classList.add('border', 'border-blue-900', 'text-blue-900');
+            }
+        }
+
+        // Keyboard support for filters
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'f' && document.activeElement.tagName === 'BODY') {
+                    e.preventDefault();
+                    const current = currentFilter;
+                    filterTimeline(current === 'all' ? 'bad-faith' : 'all');
+                }
+            });
+
+            // Add subtle focus styles to nav links
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Optional: extra smooth behavior if needed
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        setTimeout(() => {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 10);
+                    }
+                });
+            });
+        }
+
+        // Highlight bad faith rows in ledger on hover (optional polish)
+        function enhanceLedger() {
+            const rows = document.querySelectorAll('#ledger tbody tr');
+            rows.forEach(row => {
+                row.addEventListener('mouseenter', () => {
+                    row.style.backgroundColor = '#f8fafc';
+                });
+                row.addEventListener('mouseleave', () => {
+                    row.style.backgroundColor = '';
+                });
+            });
+        }
+
+        // Initialize everything
+        function initializeDashboard() {
+            initTailwind();
+            setupKeyboardShortcuts();
+            enhanceLedger();
+
+            // Set initial filter state (All)
+            const allBtn = document.getElementById('filter-all');
+            if (allBtn) {
+                allBtn.classList.add('bg-blue-900', 'text-white');
+            }
+
+            // Make timeline dots slightly larger on hover
+            const dots = document.querySelectorAll('.timeline-dot');
+            dots.forEach(dot => {
+                dot.addEventListener('mouseenter', () => {
+                    dot.style.transform = 'scale(1.15)';
+                });
+                dot.addEventListener('mouseleave', () => {
+                    dot.style.transform = 'scale(1)';
+                });
+            });
+
+            // Accessibility: allow pressing Enter on filter buttons
+            const filterAll = document.getElementById('filter-all');
+            const filterBad = document.getElementById('filter-bad');
+            if (filterAll) filterAll.setAttribute('role', 'button');
+            if (filterBad) filterBad.setAttribute('role', 'button');
+
+            // Optional: announce on console for developers (harmless)
+            console.log('%c[Dashboard] Case 061268471-01 Professional Public Ledger initialized.', 'color:#64748b;font-size:9px');
+        }
+
+        // Boot
+        document.addEventListener('DOMContentLoaded', initializeDashboard);
+    </script>
+</body>
+</html>
