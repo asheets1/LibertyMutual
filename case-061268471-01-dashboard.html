@@ -176,6 +176,36 @@
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased">
+    <!-- Password Gate Overlay -->
+    <div id="password-gate" class="fixed inset-0 bg-slate-900/95 z-[70] flex items-center justify-center no-print">
+        <div class="max-w-md w-full mx-4 bg-white rounded-2xl shadow-2xl p-8 border border-slate-200">
+            <div class="flex justify-center mb-4">
+                <div class="w-12 h-12 bg-blue-900 rounded-xl flex items-center justify-center">
+                    <i class="fa-solid fa-lock text-white text-2xl"></i>
+                </div>
+            </div>
+            <h2 class="text-center text-2xl font-semibold tracking-tight text-slate-900">Protected Case File</h2>
+            <p class="text-center text-sm text-slate-600 mt-1 mb-6">This insurance bad-faith ledger is access-restricted.<br>Enter the password to view the dashboard.</p>
+            
+            <div class="space-y-4">
+                <input id="password-input" type="password" placeholder="Enter password" 
+                       class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 text-lg tracking-wider"
+                       onkeydown="if (event.key === 'Enter') unlockDashboard()">
+                
+                <button onclick="unlockDashboard()" 
+                        class="w-full py-3 bg-blue-900 hover:bg-blue-800 active:bg-blue-950 transition-colors text-white font-semibold rounded-xl text-sm tracking-wider">
+                    UNLOCK DASHBOARD
+                </button>
+                
+                <div id="password-error" class="hidden text-center text-red-700 text-sm font-semibold bg-red-50 py-2 px-3 rounded-lg border border-red-100">
+                    Incorrect password. Access denied.
+                </div>
+            </div>
+            
+            <p class="text-center text-[10px] text-slate-400 mt-5 tracking-widest">CASE 061268471-01 • LIBERTY MUTUAL</p>
+        </div>
+    </div>
+
     <!-- Sticky Navigation -->
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 no-print">
         <div class="max-w-[1180px] mx-auto">
@@ -206,6 +236,11 @@
                             class="inline-flex items-center gap-x-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-4 py-2 transition-colors shadow-sm">
                         <i class="fa-solid fa-print text-sm"></i>
                         <span class="hidden sm:inline">Print Report</span>
+                    </button>
+
+                    <button onclick="lockDashboard()" title="Re-lock this dashboard"
+                            class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 transition-colors">
+                        <i class="fa-solid fa-lock text-sm"></i>
                     </button>
                     
                     <!-- Mobile menu button -->
@@ -782,6 +817,96 @@
             });
         }
 
+        // Password protection logic
+        const CORRECT_PASSWORD = "SheetsLM*";
+        let isUnlocked = false;
+
+        function showPasswordGate() {
+            const gate = document.getElementById('password-gate');
+            const errorEl = document.getElementById('password-error');
+            const input = document.getElementById('password-input');
+            
+            if (gate) gate.style.display = 'flex';
+            if (errorEl) errorEl.classList.add('hidden');
+            if (input) {
+                input.value = '';
+                input.focus();
+            }
+            isUnlocked = false;
+        }
+
+        function hidePasswordGate() {
+            const gate = document.getElementById('password-gate');
+            if (gate) gate.style.display = 'none';
+            isUnlocked = true;
+        }
+
+        function unlockDashboard() {
+            const input = document.getElementById('password-input');
+            const errorEl = document.getElementById('password-error');
+            
+            if (!input) return;
+
+            const entered = input.value.trim();
+
+            if (entered === CORRECT_PASSWORD) {
+                if (errorEl) errorEl.classList.add('hidden');
+                sessionStorage.setItem('lm_dashboard_unlocked', 'true');
+                hidePasswordGate();
+                
+                // Optional: scroll to top after unlock
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                if (errorEl) errorEl.classList.remove('hidden');
+                input.value = '';
+                input.focus();
+                
+                // Shake effect for wrong password
+                const card = input.parentElement.parentElement;
+                if (card) {
+                    card.classList.add('animate-shake');
+                    setTimeout(() => card.classList.remove('animate-shake'), 400);
+                }
+            }
+        }
+
+        function lockDashboard() {
+            sessionStorage.removeItem('lm_dashboard_unlocked');
+            showPasswordGate();
+        }
+
+        // Check unlock state on load
+        function checkPasswordGate() {
+            const gate = document.getElementById('password-gate');
+            const unlocked = sessionStorage.getItem('lm_dashboard_unlocked') === 'true';
+            
+            if (unlocked && gate) {
+                gate.style.display = 'none';
+                isUnlocked = true;
+            } else if (gate) {
+                gate.style.display = 'flex';
+                // Focus the input after a short delay
+                setTimeout(() => {
+                    const input = document.getElementById('password-input');
+                    if (input) input.focus();
+                }, 150);
+            }
+        }
+
+        // Add a subtle shake animation (used for wrong password)
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                20%, 60% { transform: translateX(-6px); }
+                40%, 80% { transform: translateX(6px); }
+            }
+            .animate-shake {
+                animation: shake 0.4s ease-in-out;
+            }
+        `;
+        document.head.appendChild(style);
+
         // Initialize everything
         function initializeDashboard() {
             initTailwind();
@@ -810,6 +935,9 @@
             const filterBad = document.getElementById('filter-bad');
             if (filterAll) filterAll.setAttribute('role', 'button');
             if (filterBad) filterBad.setAttribute('role', 'button');
+
+            // Password gate
+            checkPasswordGate();
 
             // Optional: announce on console for developers (harmless)
             console.log('%c[Dashboard] Case 061268471-01 Professional Public Ledger initialized.', 'color:#64748b;font-size:9px');
